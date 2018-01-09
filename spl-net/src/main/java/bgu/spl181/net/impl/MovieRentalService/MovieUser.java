@@ -8,7 +8,7 @@ public class MovieUser extends User {
     private int balance;
     private String type;
     private String country;
-    private LinkedList<Movie> rentMovies;
+    private LinkedList<Movie> movies = new LinkedList<>();
 
 
     public MovieUser(String UserName , String password ,String _type, int _balance,
@@ -18,7 +18,7 @@ public class MovieUser extends User {
         this.balance= _balance;
         this.type=_type;
         this.country=_country;
-        this.rentMovies.addAll(_rentMovies);
+        this.movies.addAll(_rentMovies);
     }
 
     public void setBalance (int amountToAdd){

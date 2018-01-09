@@ -10,9 +10,9 @@ public class ServerMain {
     public static void main(String[] args) {
         LinkedList<User> Users = new LinkedList<>();
 
-        Server.threadPerClient(7777,
+        /*Server.threadPerClient(7777,
                 () -> new USTBProtocol(Users),
-                () -> new MessagingEncDecImpl()).serve();
+                () -> new MessagingEncDecImpl()).serve();*/
 
         /*Server.reactor(
                 5,

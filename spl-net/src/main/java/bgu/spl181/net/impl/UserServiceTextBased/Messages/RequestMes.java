@@ -6,6 +6,7 @@ import bgu.spl181.net.impl.UserServiceTextBased.Commands.ErrorCom;
 import bgu.spl181.net.impl.UserServiceTextBased.User;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public abstract class RequestMes extends BaseMessage {
 
@@ -17,7 +18,7 @@ public abstract class RequestMes extends BaseMessage {
     }
 
     public abstract BaseMessage Execute(Connections<BaseMessage> connections, int connId,
-                               LinkedList<User> users, boolean IsClienLogged);
+                                        Map<String,User> users, boolean IsClienLogged);
 
 
 }

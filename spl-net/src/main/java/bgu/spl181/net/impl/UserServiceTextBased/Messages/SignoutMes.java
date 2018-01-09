@@ -8,6 +8,7 @@ import bgu.spl181.net.impl.UserServiceTextBased.User;
 import com.sun.org.apache.xml.internal.serialize.BaseMarkupSerializer;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class SignoutMes extends BaseMessage {
 
@@ -15,7 +16,7 @@ public class SignoutMes extends BaseMessage {
         this.name = "Signout";
     }
     public BaseMessage Execute(Connections<BaseMessage> connections, int connId,
-                               LinkedList<User> users,boolean IsClienLogged){
+                               Map<String,User> users, boolean IsClienLogged){
 
         if (IsClienLogged)
             return new AckCom("signout succeeded");

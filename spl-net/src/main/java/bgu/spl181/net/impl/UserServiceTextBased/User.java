@@ -7,19 +7,19 @@ import java.util.LinkedList;
 
 public class User {
     private boolean isLogged=false;
-    private String UserName;
-    private String Password;
+    private String username;
+    private String password;
 
     public User (boolean _isLogged, String _userName, String pass){
 
     }
 
    public String getUserName(){
-        return UserName;
+        return username;
     }
 
     public String getPassword(){
-        return Password;
+        return password;
     }
 
     public boolean isLoggedIn(){

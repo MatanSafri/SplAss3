@@ -5,6 +5,7 @@ import bgu.spl181.net.impl.UserServiceTextBased.Commands.BaseCommand;
 import bgu.spl181.net.impl.UserServiceTextBased.User;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public abstract class BaseMessage {
 
@@ -20,16 +21,8 @@ public abstract class BaseMessage {
 
     public abstract BaseMessage Execute(Connections<BaseMessage> connections,
                                         int connId,
-                                        LinkedList<User> users,
+                                        Map<String,User> users,
                                         boolean IsClienLogged);
 
-
-    public User getUser(LinkedList<User> users, String UserName){
-        for(User user: users){
-            if (user.getUserName().equals(UserName))
-                return user;
-        }
-        return null;
-    }
 
 }

@@ -7,6 +7,7 @@ import bgu.spl181.net.impl.UserServiceTextBased.Commands.ErrorCom;
 import bgu.spl181.net.impl.UserServiceTextBased.User;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class LoginMes extends BaseMessage {
     String UserName;
@@ -19,8 +20,8 @@ public class LoginMes extends BaseMessage {
     }
 
     public BaseCommand Execute(Connections<BaseMessage> connections,
-                                        int connId, LinkedList<User> users, boolean IsClienLogged){
-        User tmp = getUser(users, UserName);
+                               int connId, Map<String,User> users, boolean IsClienLogged){
+        User tmp = users.get(UserName);
         if (tmp == null|| IsClienLogged  || tmp.isLoggedIn() || !isPassFit(tmp , UserName, Password) ) {
             response = false;
             return new ErrorCom("login failed");
@@ -39,4 +40,8 @@ public class LoginMes extends BaseMessage {
         return (user.getUserName().equals(UserName) && user.getPassword().equals(Pass));
     }
 
-}
+    public User getCurrUser(Map<String,User> users) {
+        return users.get(UserName);
+    }
+
+    }

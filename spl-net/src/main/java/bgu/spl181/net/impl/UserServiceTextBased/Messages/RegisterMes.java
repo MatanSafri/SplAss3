@@ -8,6 +8,7 @@ import bgu.spl181.net.impl.UserServiceTextBased.User;
 import org.omg.CORBA.StringHolder;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class RegisterMes extends BaseMessage {
 
@@ -24,9 +25,9 @@ public RegisterMes(String _UserName, String pass, String _extra ){
     }
 
     public BaseCommand Execute(Connections<BaseMessage> connections, int connId,
-                               LinkedList<User> users, boolean isClientLogged){
+                               Map<String,User> users, boolean isClientLogged){
 
-    if (Password==null || UserName==null || getUser(users,UserName)==null|| isClientLogged )
+    if (Password==null || UserName==null || users.get(UserName)==null|| isClientLogged )
         //TODO: handle data block does not fit requirements
         {
             response=false;
@@ -34,7 +35,7 @@ public RegisterMes(String _UserName, String pass, String _extra ){
         }
         else{
             User user = new User (false, UserName, Password);
-            users.add(user);
+            users.put(UserName,user);
             response=true;
             return new AckCom("registration succeeded");
         }

@@ -16,17 +16,19 @@ public abstract class BaseServer<T> implements Server<T> {
     private final Supplier<BidiMessagingProtocol<T>> protocolFactory;
     private final Supplier<MessageEncoderDecoder<T>> encdecFactory;
     private ServerSocket sock;
-    private Connections<T> connections; //TODO: where is it initialized??
+    private Connections<T> _connections; //TODO: where is it initialized??
 
     public BaseServer(
             int port,
             Supplier<BidiMessagingProtocol<T>> protocolFactory,
-            Supplier<MessageEncoderDecoder<T>> encdecFactory) {
+            Supplier<MessageEncoderDecoder<T>> encdecFactory)
+    {
 
         this.port = port;
         this.protocolFactory = protocolFactory;
         this.encdecFactory = encdecFactory;
 		this.sock = null;
+        _connections = new ConnectionsImpl<>();
     }
 
     @Override
@@ -49,8 +51,8 @@ public abstract class BaseServer<T> implements Server<T> {
                         encdecFactory.get(),
                         messagingProtocol);
 
-                int connectionId =  connections.connect(handler);
-                messagingProtocol.start(connectionId,connections);
+                int connectionId =  _connections.connect(handler);
+                messagingProtocol.start(connectionId,_connections);
 
                 execute(handler);
             }

@@ -1,13 +1,11 @@
 package bgu.spl181.net.impl.newsfeed;
 
-import bgu.spl181.net.impl.MovieRentalService.UsersDB;
+import bgu.spl181.net.impl.MovieRentalService.DB.UsersDB;
 
 public class NewsFeedServerMain {
 
     public static void main(String[] args) {
         NewsFeed feed = new NewsFeed(); //one shared object
-        UsersDB.getInstance().getUsers().get("john").setBalance(4);
-        UsersDB.getInstance().SaveUsers();
 
 // you can use any server... 
 //        Server.threadPerClient(

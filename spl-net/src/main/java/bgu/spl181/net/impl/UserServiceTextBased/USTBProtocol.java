@@ -2,49 +2,71 @@ package bgu.spl181.net.impl.UserServiceTextBased;
 
 import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
 import bgu.spl181.net.api.bidi.Connections;
-import bgu.spl181.net.impl.UserServiceTextBased.Commands.BaseCommand;
-import bgu.spl181.net.impl.UserServiceTextBased.Commands.ErrorCom;
-import bgu.spl181.net.impl.UserServiceTextBased.Messages.BaseMessage;
-import bgu.spl181.net.impl.UserServiceTextBased.Messages.LoginMes;
-import bgu.spl181.net.srv.ConnectionHandler;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Map;
 
-public class USTBProtocol implements BidiMessagingProtocol <String> {
 
-    private Connections<String> connections;
-    private int connectionId;
-    private boolean _shouldTerminate = false;
-    private Map<String,User> users;
-    private boolean isClientLoggedIn = false;
-    private User currUser;
+public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? extends USTBPDataExecutor>> implements BidiMessagingProtocol<String> {
 
-    public USTBProtocol(Map<String,User> _users){
-        this.users=_users;
+    protected Connections<String> _connections;
+    protected int connectionId;
+    protected boolean _shouldTerminate = false;
+    protected K _sharedData;
+    protected boolean isClientLoggedIn = false;
+    protected T currUser;
+
+    public USTBProtocol(K sharedData){
+        _sharedData = sharedData;
     }
 
     public void start(int connectionId, Connections<String> connections){
         this.connectionId = connectionId;
-        this.connections = connections;
+        this._connections = connections;
     }
 
     public void process(String message){
 
-
-       /*  BaseMessage response = message.Execute(connections, connectionId,users,isClientLoggedIn);
-
-       if(message.getName().equals("Signout") && message.getResponse()) {
-            _shouldTerminate = true;
-            isClientLoggedIn=false;
+        ArrayList<String> tmp = separateString(message);
+        String messageType = tmp.get(0).toUpperCase();
+        switch (messageType){
+            case "LOGIN":{
+                processLogin(tmp.get(1),tmp.get(2));
+                break;
+            }
+            case "REGISTER": {
+                ArrayList<Pair<String, String>> datablock = new ArrayList<>();
+                for (int m = 3; m < tmp.size(); m++) {
+                    int j=0;
+                    for (int i = 0; i < tmp.get(m).length(); i++) {
+                        if (tmp.get(m).charAt(i) == '=') {
+                            datablock.add(new Pair<String, String>(tmp.get(m).substring(j,i-1),tmp.get(m).substring(i+1)));
+                            break;
+                        }
+                    }
+                    processBasicRegister(tmp.get(1), tmp.get(2),datablock);
+                    break;
+                }
+            }
+            case "REQUEST":{
+                String serviceName = tmp.get(1);
+                tmp.remove(tmp.get(0));
+                tmp.remove(tmp.get(1));
+                processBasicRequest(serviceName,tmp);
+                break;
+            }
+            case "SIGNOUT":{
+                processSignout();
+                break;
+            }
+            default:
+                break;
         }
-        else if (message.getName()=="Login" && message.getResponse()) {
-            currUser = ((LoginMes)message).getCurrUser(users);
-            isClientLoggedIn = true;
-            //System.out.println(message); //maybe don't need this
-        }
-        connections.send(connectionId, response);*/
+    }
+
+    public void broadcastToLoggedInUsers(String msg)
+    {
+        _connections.broadcastSpecific(msg,_sharedData.getLoggedInUsers().keySet());
     }
 
     /**
@@ -54,32 +76,84 @@ public class USTBProtocol implements BidiMessagingProtocol <String> {
         return _shouldTerminate;
     }
 
-    private BaseMessage StringToMsg(String msg){
-        ArrayList<String> tmp = seperateString(msg);
-        switch (tmp.get(0).toUpperCase()){
-            case "LOGIN":{
-                return new LoginMes(tmp.get(1),tmp.get(2));
-            }
-            case "REGISTER":{
 
-            }
-            case "REQUEST":{
-                break;
-            }
-            case "SIGNOUT":{
-                break;
-            }
-            default:
-                return null;
-        }
+    protected abstract void processRequest(String serviceName,ArrayList<String> params);
+    protected abstract T getUser(String userName, String password);
+    protected  void processRegisterExtraData(String userName, String password,ArrayList<Pair<String,String>> datablock)
+    {
 
-        return null;
+        _connections.send(connectionId, "ACK registration succeeded");
     }
 
+    private void  processBasicRegister(String userName, String password, ArrayList<Pair<String,String>> datablock)
+    {
+        if (password==null || userName==null || _sharedData.getUsers().get(userName)==null|| isClientLoggedIn )
+        //TODO: handle data block does not fit requirements
+        {
+            _connections.send(connectionId, "ERROR registration failed");
+        }
+        else{
 
+            if (datablock.size() == 0) {
+                _connections.send(connectionId, "ACK registration succeeded");
+                T user = getUser(userName,password);
+                _sharedData.getUsers().put(userName,user);
+            }
+            else{
+                processRegisterExtraData(userName,password,datablock);
+            }
+        }
 
+    }
 
-    private ArrayList<String> seperateString(String msg){
+    private void  processBasicRequest(String serviceName,ArrayList<String> params)
+    {
+        if (isClientLoggedIn)
+        {
+            processRequest(serviceName,params);
+        }
+        else
+        {
+            _connections.send(connectionId, "ERROR request " + serviceName +" failed");
+        }
+    }
+
+    private void processSignout()
+    {
+        if (isClientLoggedIn) {
+            _shouldTerminate = true;
+            isClientLoggedIn = false;
+            currUser.setIsLogged(false);
+            currUser = null;
+            _sharedData.getLoggedInUsers().remove(connectionId);
+            _connections.send(connectionId, "ACK signout succeeded");
+        }
+        else {
+            _connections.send(connectionId, "ERROR signout failed");
+        }
+    }
+
+    private void processLogin(String userName,String password)
+    {
+        T tmp = _sharedData.getUsers().get(userName);
+        if (tmp == null|| isClientLoggedIn  || tmp.isLoggedIn() || !isPassFit(tmp , userName, password) ) {
+            _connections.send(connectionId, "ERROR login failed");
+        }
+        else
+        {
+            isClientLoggedIn = true;
+            tmp.setIsLogged(true);
+            currUser=tmp;
+            _sharedData.getLoggedInUsers().put(connectionId,currUser);
+            _connections.send(connectionId, "ACK login succeeded");
+        }
+    }
+
+    private boolean isPassFit(User user, String UserName, String Pass){
+        return (user.getUserName().toLowerCase().equals(UserName.toLowerCase()) && user.getPassword().equals(Pass));
+    }
+
+    private ArrayList<String> separateString(String msg){
         ArrayList<String> tmp = new ArrayList<>();
         int j=0;
         boolean isName=false; //if we already got "

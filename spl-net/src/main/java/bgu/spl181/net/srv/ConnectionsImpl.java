@@ -4,17 +4,19 @@ import bgu.spl181.net.api.bidi.Connections;
 
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.UUID;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class ConnectionsImpl<T> implements Connections<T> {
 
-    private HashMap<Integer,ConnectionHandler<T>> _connectionHandlers = new HashMap<>();
+    public   HashMap<Integer,ConnectionHandler<T>> _connectionHandlers = new HashMap<>();
     private static AtomicInteger _idCounter = new AtomicInteger(0);
+
+
+    public HashMap<Integer, ConnectionHandler<T>> getConnectionHandlers() {
+        return _connectionHandlers;
+    }
 
     public boolean send(int connectionId, T msg)
     {
@@ -38,6 +40,17 @@ public class ConnectionsImpl<T> implements Connections<T> {
         for ( ConnectionHandler connectionHandler:
                 _connectionHandlers.values()) {
             connectionHandler.send(msg);
+        }
+    }
+
+    @Override
+    public void broadcastSpecific(T msg, Collection<Integer> specificConnection) {
+        for(Integer connectionId:
+                specificConnection)
+        {
+            if (_connectionHandlers.containsKey(connectionId))
+                _connectionHandlers.get(connectionId).send(msg);
+
         }
     }
 

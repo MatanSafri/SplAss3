@@ -18,15 +18,9 @@ public class MovieRentalDbExecutor extends USTBPDBExecutor<MovieUser> implements
                                  DataCommands<String,Movie> moviesDataCommands,
                                  DataCommands<String,MovieUser> usersDataCommands)
     {
-        synchronized (_lockMovies)
-        {
-            synchronized (_lockUsers) {
-                _moviesDB = moviesDataCommands;
-                _usersDB = usersDataCommands;
-                _movies = movies;
-                _users = moviesUsers;
-            }
-        }
+        super(moviesUsers,usersDataCommands);
+        _moviesDB = moviesDataCommands;
+        _movies = movies;
     }
 
     @Override

@@ -57,7 +57,7 @@ public class UsersDB implements DataCommands<String,MovieUser> {
         _gson = new GsonBuilder().registerTypeAdapter(Integer.class,
                 (JsonSerializer<Integer>)(integer, type, jsonSerializationContext) ->
                         new JsonPrimitive(integer.toString()))
-                .create();
+                .setPrettyPrinting().create();
 
     }
     public static UsersDB getInstance() {

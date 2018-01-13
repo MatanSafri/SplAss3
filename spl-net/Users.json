@@ -1,46 +1,57 @@
-﻿{
+{
   "users": [
     {
-      "username": "john",
-      "type": "admin",
-      "password": "potato",
-      "country": "united states",
-      "movies": [],
-      "balance": "0"
-    },
-	{
-      "username": "lisa",
+      "balance": "37",
       "type": "normal",
-      "password": "chips123",
       "country": "spain",
       "movies": [
         {
-          "id": "2",
-          "name": "The Pursuit Of Happyness"
+          "_id": "0",
+          "_price": "0",
+          "_availableAmount": "0",
+          "_totalAmount": "0"
         },
-		{
-		  "id": "3",
-		  "name": "The Notebook"
-		}
+        {
+          "_id": "0",
+          "_price": "0",
+          "_availableAmount": "0",
+          "_totalAmount": "0"
+        }
       ],
-      "balance": "37"
+      "isLogged": false,
+      "username": "lisa",
+      "password": "chips123"
     },
-	{
-      "username": "shlomi",
+    {
+      "balance": "2",
+      "type": "admin",
+      "country": "united states",
+      "movies": [],
+      "isLogged": false,
+      "username": "john",
+      "password": "potato"
+    },
+    {
+      "balance": "112",
       "type": "normal",
-      "password": "cocacola",
       "country": "israel",
       "movies": [
         {
-          "id": "1",
-          "name": "The Godfather"
+          "_id": "0",
+          "_price": "0",
+          "_availableAmount": "0",
+          "_totalAmount": "0"
         },
-		{
-		  "id": "2",
-		  "name": "The Pursuit Of Happyness"
-		}
+        {
+          "_id": "0",
+          "_price": "0",
+          "_availableAmount": "0",
+          "_totalAmount": "0"
+        }
       ],
-      "balance": "112"
+      "isLogged": false,
+      "username": "shlomi",
+      "password": "cocacola"
     }
   ]
 }

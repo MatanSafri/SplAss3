@@ -119,7 +119,8 @@ public class MovieRentalServiceProtocol extends USTBProtocol<MovieUser, MovieRen
                      Movie movie = new Movie(movieName,
                              _sharedData.getNextMovieID(),Integer.parseInt(params.get(2)),
                              Integer.parseInt(params.get(3)),
-                             new ArrayList<String>(Arrays.asList(params.get(4).split(","))));
+                             new ArrayList<String>(Arrays.asList(params.get(4).split(","))),
+                             Integer.parseInt(params.get(2)));
                      _sharedData.getDataExecutor().addMovie(movie);
                      _connections.send(connectionId, "ACK addmovie" + movieName + " success" );
                      broadcastToLoggedInUsers(getBroadcastMessage(_sharedData.getMovies().get(movieName)));

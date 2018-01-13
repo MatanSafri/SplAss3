@@ -27,7 +27,7 @@ public class MoviesDB implements DataCommands<String,Movie> {
         _gson = new GsonBuilder().registerTypeAdapter(Integer.class,
                 (JsonSerializer<Integer>)(integer, type, jsonSerializationContext) ->
                         new JsonPrimitive(integer.toString()))
-                .create();
+                .setPrettyPrinting().create();
 
 
     }
@@ -53,7 +53,7 @@ public class MoviesDB implements DataCommands<String,Movie> {
     public synchronized Map<String, Movie> getData() {
         Map<String, Movie> movies = new HashMap();
         try {
-            _jsonObj = _gson.fromJson(new FileReader("Users.json"), JsonObject.class);
+            _jsonObj = _gson.fromJson(new FileReader("Movies.json"), JsonObject.class);
             JsonArray jsonArray = _jsonObj.get("movies").getAsJsonArray();
             for (JsonElement jsonUser :
                     jsonArray) {

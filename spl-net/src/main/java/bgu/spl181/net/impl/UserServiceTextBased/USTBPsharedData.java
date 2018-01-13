@@ -20,6 +20,7 @@ public class USTBPsharedData<T extends User,E extends USTBPDataExecutor<T>> {
         _executor = executor;
     }
 
+
     public Map<Integer, T> getLoggedInUsers() {
         return _loggedInUsers;
     }

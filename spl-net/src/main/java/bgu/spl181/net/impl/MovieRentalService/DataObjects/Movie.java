@@ -6,71 +6,66 @@ import java.util.LinkedList;
 
 public class Movie {
 
-    private String _name;
-    private int _id;
-    private int _price;
-    private ArrayList<String> _bannedCountries;
-    private int _availableAmount;
-    private int _totalAmount;
+    private String name;
+    private int id;
+    private int price;
+    private ArrayList<String> bannedCountries;
+    private int availableAmount;
+    private int totalAmount;
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public int getTotalAmount() {
-        return _totalAmount;
+        return totalAmount;
     }
 
     public void setAvailableAmount(int availableAmount) {
-        this._availableAmount = availableAmount;
+        this.availableAmount = availableAmount;
     }
 
     public void setBannedCountries(ArrayList<String> bannedCountries) {
-        this._bannedCountries = bannedCountries;
+        this.bannedCountries = bannedCountries;
     }
 
     public void setTotalAmount(int totalAmount) {
-        this._totalAmount = totalAmount;
+        this.totalAmount = totalAmount;
     }
 
     public void setPrice(int price) {
-        this._price = price;
+        this.price = price;
     }
 
     public void setName(String name) {
-        this._name = name;
+        this.name = name;
     }
 
     public int getAvailableAmount() {
-        return _availableAmount;
+        return availableAmount;
     }
 
     public ArrayList<String> getBannedCountries() {
-        return _bannedCountries;
+        return bannedCountries;
     }
 
     public int getPrice() {
-        return _price;
+        return price;
     }
 
     public int getId()
     {
-        return _id;
+        return id;
     }
 
-    public Movie(String name, int _id){
-        this._name=name;
-        this._id=_id;
-        _bannedCountries = new ArrayList<>();
-    }
-
-    public Movie(String name,int id,int totalAmount,int price,ArrayList<String> bannedCountries)
+    public Movie(String name,int id,int totalAmount,int price,ArrayList<String> bannedCountries,int availableAmount)
     {
-        _name  = name;
-        _id = id;
-        _totalAmount = totalAmount;
-        _price = price;
-        _bannedCountries  = bannedCountries;
+        this.name  = name;
+        this.id = id;
+        this.totalAmount = totalAmount;
+        this.price = price;
+        this.bannedCountries  = bannedCountries;
+        this.availableAmount = availableAmount;
     }
 }
 

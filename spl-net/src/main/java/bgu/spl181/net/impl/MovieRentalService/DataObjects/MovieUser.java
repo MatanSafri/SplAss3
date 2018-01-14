@@ -21,6 +21,10 @@ public class MovieUser extends User {
         this.movies= _rentMovies;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public void setBalance (int balance)
     {
         this.balance = balance;

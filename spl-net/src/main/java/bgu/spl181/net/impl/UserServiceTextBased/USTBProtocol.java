@@ -40,18 +40,24 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
                     int j=0;
                     for (int i = 0; i < tmp.get(m).length(); i++) {
                         if (tmp.get(m).charAt(i) == '=') {
-                            datablock.add(new Pair<String, String>(tmp.get(m).substring(j,i-1),tmp.get(m).substring(i+1)));
+                            datablock.add(new Pair<String, String>(tmp.get(m).substring(j,i),tmp.get(m).substring(i+1)));
                             break;
                         }
                     }
-                    processBasicRegister(tmp.get(1), tmp.get(2),datablock);
-                    break;
                 }
+                processBasicRegister(tmp.get(1), tmp.get(2),datablock);
+                break;
             }
             case "REQUEST":{
-                String serviceName = tmp.get(1);
-                tmp.remove(tmp.get(0));
-                tmp.remove(tmp.get(1));
+
+                tmp.remove(tmp.get(0));//delete the word 'request' from param
+                String serviceName = getServiceName(tmp);
+
+                //delete the service name from the parameters
+                ArrayList<String> serviceNameSplit = separateString(serviceName);
+                for (int i=0;i<serviceNameSplit.size();i++){
+                    tmp.remove(serviceNameSplit.get(i));
+                }
                 processBasicRequest(serviceName,tmp);
                 break;
             }
@@ -63,6 +69,8 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
                 break;
         }
     }
+
+
 
     public void broadcastToLoggedInUsers(String msg)
     {
@@ -76,6 +84,10 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
         return _shouldTerminate;
     }
 
+    protected String getServiceName(ArrayList<String> param)
+    {
+        return  param.get(0);
+    }
 
     protected abstract void processRequest(String serviceName,ArrayList<String> params);
     protected abstract T getUser(String userName, String password);
@@ -87,8 +99,7 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
 
     private void  processBasicRegister(String userName, String password, ArrayList<Pair<String,String>> datablock)
     {
-        if (password==null || userName==null || _sharedData.getUsers().get(userName)==null|| isClientLoggedIn )
-        //TODO: handle data block does not fit requirements
+        if (password==null || userName==null || _sharedData.getUsers().get(userName) !=null|| isClientLoggedIn )
         {
             _connections.send(connectionId, "ERROR registration failed");
         }
@@ -158,20 +169,22 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
         int j=0;
         boolean isName=false; //if we already got "
         for (int i=0;i< msg.length();i++){
-            if (tmp.get(i)==" " && !isName) {
-                tmp.add(msg.substring(j, i-1));
+            if (msg.charAt(i)== ' ' && !isName) {
+                tmp.add(msg.substring(j, i));
                 j=i+1;
             }
-            else if (tmp.get(i)== "\"")
+            else if (msg.charAt(i)== '\"')
             {
-                if (!isName)
-                    isName=true;
-                else
+                if (!isName) {
+                    isName = true;
+                }
+                else {
                     isName = false;
+                }
             }
 
         }
-        tmp.add(msg.substring(j,msg.length()-1));
+        tmp.add(msg.substring(j,msg.length()));
         return tmp;
     }
 }

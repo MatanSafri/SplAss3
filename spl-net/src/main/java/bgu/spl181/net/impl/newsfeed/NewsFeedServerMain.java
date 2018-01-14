@@ -15,6 +15,7 @@ import bgu.spl181.net.srv.Server;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 public class NewsFeedServerMain {
@@ -26,20 +27,14 @@ public class NewsFeedServerMain {
         Map<String,Movie> movies = MoviesDB.getInstance().getData();
         Map<String,MovieUser> users = UsersDB.getInstance().getData();
 
-
-        movies.get("The Godfather").setPrice(19);
-        MoviesDB.getInstance().saveData(movies);
-
         MoviesRentalDataExecutor moviesRentalDataExecutor = new MovieRentalDbExecutor(
-                movies,
-                users,
                 MoviesDB.getInstance(),
                 UsersDB.getInstance()
         );
 
         MovieRentalSharedData moviesSharedData = new MovieRentalSharedData(
-            users,
-            movies,
+                users,
+                movies,
             moviesRentalDataExecutor
         );
 
@@ -50,18 +45,18 @@ public class NewsFeedServerMain {
                 () -> new MessagingEncDecImpl();
 
 
-        /*Server.threadPerClient(
+        Server.threadPerClient(
                 7777,
                 protocolSupplier,
                 messageEncoderDecoderSupplier
         ).serve();
 
-         Server.reactor(
+         /*Server.reactor(
                 Runtime.getRuntime().availableProcessors(),
                 7777, //port
                  protocolSupplier,
                  messageEncoderDecoderSupplier
-         ).serve();*/
+         ).serve();
 
 // you can use any server... 
 //        Server.threadPerClient(

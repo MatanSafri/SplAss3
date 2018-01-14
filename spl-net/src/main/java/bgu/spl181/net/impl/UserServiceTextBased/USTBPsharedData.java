@@ -8,9 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class USTBPsharedData<T extends User,E extends USTBPDataExecutor<T>> {
 
-    private ConcurrentHashMap<String,T> _users;
-    private ConcurrentHashMap<Integer,T> _loggedInUsers;
-    private E _executor;
+    protected ConcurrentHashMap<String,T> _users;
+    protected ConcurrentHashMap<Integer,T> _loggedInUsers;
+    protected E _executor;
 
     public USTBPsharedData(Map<String,T> users, E executor)
     {
@@ -18,8 +18,8 @@ public class USTBPsharedData<T extends User,E extends USTBPDataExecutor<T>> {
         _users = new ConcurrentHashMap<>();
         _users.putAll(users);
         _executor = executor;
+        _executor.setUsers(_users);
     }
-
 
     public Map<Integer, T> getLoggedInUsers() {
         return _loggedInUsers;

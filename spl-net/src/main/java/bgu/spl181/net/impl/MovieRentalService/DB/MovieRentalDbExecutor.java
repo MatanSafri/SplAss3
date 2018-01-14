@@ -13,13 +13,16 @@ public class MovieRentalDbExecutor extends USTBPDBExecutor<MovieUser> implements
     private DataCommands<String,Movie> _moviesDB;
     private Map<String,Movie> _movies;
 
-    public MovieRentalDbExecutor(Map<String,Movie> movies,
-                                 Map<String,MovieUser> moviesUsers,
-                                 DataCommands<String,Movie> moviesDataCommands,
+    public MovieRentalDbExecutor(DataCommands<String,Movie> moviesDataCommands,
                                  DataCommands<String,MovieUser> usersDataCommands)
     {
-        super(moviesUsers,usersDataCommands);
+        super(usersDataCommands);
         _moviesDB = moviesDataCommands;
+    }
+
+
+    @Override
+    public void setMovies(Map<String, Movie> movies) {
         _movies = movies;
     }
 
@@ -38,6 +41,7 @@ public class MovieRentalDbExecutor extends USTBPDBExecutor<MovieUser> implements
                 movie.setAvailableAmount(movie.getAvailableAmount() - 1);
                 MoviesDB.getInstance().saveData(_movies);
                 user.getMovies().add(movie);
+                user.setBalance(user.getBalance()-movie.getPrice());
                 _usersDB.saveData(_users);
             }
         }

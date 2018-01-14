@@ -16,9 +16,11 @@ public class UsersDB implements DataCommands<String,MovieUser> {
 
     @Override
     public boolean saveData(Map<String, MovieUser> data) {
+
         HashMap<String,Collection<MovieUser>> jsonString = new HashMap<>();
         jsonString.put("users",data.values());
         String sterilizeObj = _gson.toJson(jsonString);
+        sterilizeObj = sterilizeObj.replace("\\\"","");
         try {
             Files.write(Paths.get("Users.json"), sterilizeObj.getBytes());
             return true;
@@ -38,6 +40,9 @@ public class UsersDB implements DataCommands<String,MovieUser> {
             for (JsonElement jsonUser :
                     jsonArray) {
                 MovieUser movieUser = _gson.fromJson(jsonUser, MovieUser.class);
+                // save strings inside ""
+                movieUser.getMovies().forEach(movie -> movie.setName("\"" + movie.getName() + "\""));
+                movieUser.setCountry("\"" + movieUser.getCountry() + "\"");
                 movieUsers.put(movieUser.getUserName(), movieUser);
             }
         }

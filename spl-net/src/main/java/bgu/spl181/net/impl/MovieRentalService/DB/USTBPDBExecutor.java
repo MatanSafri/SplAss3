@@ -14,11 +14,14 @@ public class USTBPDBExecutor<T extends User> implements USTBPDataExecutor<T> {
     protected DataCommands<String,T> _usersDB;
     protected Map<String,T> _users;
 
-    public USTBPDBExecutor(Map<String,T> users,
-                           DataCommands<String,T> usersDB)
+    @Override
+    public void setUsers(Map<String, T> _users) {
+        this._users = _users;
+    }
+
+    public USTBPDBExecutor(DataCommands<String,T> usersDB)
     {
         _usersDB = usersDB;
-        _users = users;
     }
 
     @Override

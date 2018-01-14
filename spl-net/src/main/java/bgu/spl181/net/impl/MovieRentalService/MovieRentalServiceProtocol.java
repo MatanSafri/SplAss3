@@ -7,9 +7,7 @@ import bgu.spl181.net.impl.MovieRentalService.DataObjects.MovieUser;
 import bgu.spl181.net.impl.UserServiceTextBased.USTBProtocol;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 
 public class MovieRentalServiceProtocol extends USTBProtocol<MovieUser, MovieRentalSharedData>
 {
@@ -17,56 +15,65 @@ public class MovieRentalServiceProtocol extends USTBProtocol<MovieUser, MovieRen
     {
         super(sharedData);
     }
+
     @Override
     protected  void processRegisterExtraData(String userName, String password,ArrayList<Pair<String,String>> datablock)
     {
         MovieUser movieUser = new MovieUser(userName,password,"normal",
-                0,new LinkedList<Movie>(),datablock.get(0).getKey());
+                0,new LinkedList<Movie>(),datablock.get(0).getValue());
 
 
+        _sharedData.getDataExecutor().register(movieUser);
         _connections.send(connectionId, "ACK registration succeeded");
+    }
+
+    @Override
+    protected String getServiceName(ArrayList<String> param){
+        if(param.get(0).toLowerCase().equals("balance")) //has 2 words
+            return param.get(0)+" "+param.get(1);
+
+        return param.get(0);
     }
     @Override
     protected void processRequest(String serviceName, ArrayList<String> params)
     {
-        // TODO: Sync issues
         // Normal users commands
         // Info request
-        if (params.get(0).toLowerCase() == "info")
+        if (serviceName.toLowerCase().equals("info"))
         {
             // send all the movies names
-            if (params.size() == 1)
+            if (params.size() == 0)
             {
-                String moviesNames =  String.join(",", _sharedData.getMovies().keySet());
+                String moviesNames =  String.join(" ", _sharedData.getMovies().keySet());
                 _connections.send(connectionId, "ACK info " + moviesNames);
             }
             else {
-                String movieName = params.get(1);
+                String movieName = params.get(0);//.substring(1,params.get(0).length()-1);
                 if (_sharedData.getMovies().containsKey(movieName))
                 {
                     Movie movie = _sharedData.getMovies().get(movieName);
-                    String movieInfo  = movie.getName() + " " +
+                    String movieInfo  = "\"" + movie.getName() + "\" " +
                             movie.getAvailableAmount() + " " +
                             movie.getPrice() + " " +
-                            String.join(",", movie.getBannedCountries());
+                            String.join(" ", movie.getBannedCountries());
                     _connections.send(connectionId, "ACK info " + movieInfo);
                 }
                 else {
-                    _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                    _connections.send(connectionId, "ERROR request info failed");
                 }
             }
         }
         // Rent request
-        else if (params.get(0).toLowerCase() == "rent")
+        else if (serviceName.toLowerCase().equals("rent"))
         {
-            String movieName = params.get(1);
+            String movieName = params.get(0);
             if (_sharedData.getMovies().containsKey(movieName))// movie exists
             {
                     Movie movie = _sharedData.getMovies().get(movieName);
                     if (movie.getAvailableAmount() != 0 && // there is available copy
-                            currUser.getBalance() < _sharedData.getMovies().get(movieName).getPrice() && // user doesn't have enough money)
+                            currUser.getBalance() >= _sharedData.getMovies().get(movieName).getPrice() && // user has enough money
                             !movie.getBannedCountries().contains(currUser.getCountry()) &&// country not banned
-                            !currUser.getMovies().contains(movieName)) // user didn't rent the movie already)
+                            !currUser.getMovies().stream().anyMatch(m-> m.getName().equals(movieName))) // user didn't rent the movie already)
                     {
                         _sharedData.getDataExecutor().rentMovie(currUser,movie);
                         _connections.send(connectionId, "ACK rent " + movieName + " success" );
@@ -74,17 +81,17 @@ public class MovieRentalServiceProtocol extends USTBProtocol<MovieUser, MovieRen
                     }
                     else
                     {
-                        _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                        _connections.send(connectionId, "ERROR request rent failed");
                     }
             }
             else
-                _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                _connections.send(connectionId, "ERROR request rent failed");
         }
         // Return request
-        else if (params.get(0).toLowerCase() == "return")
+        else if (serviceName.toLowerCase().equals("return"))
         {
-            String movieName = params.get(1);
-            if (_sharedData.getMovies().containsKey(movieName) && currUser.getMovies().contains(movieName))// movie exists and user rented the movie
+            String movieName = params.get(0);
+            if (_sharedData.getMovies().containsKey(movieName) && currUser.getMovies().stream().anyMatch(m-> m.getName().equals(movieName)))// movie exists and user rented the movie
             {
                 Movie movie = _sharedData.getMovies().get(movieName);
                 _sharedData.getDataExecutor().returnMovie(currUser,movie);
@@ -92,86 +99,89 @@ public class MovieRentalServiceProtocol extends USTBProtocol<MovieUser, MovieRen
                 broadcastToLoggedInUsers(getBroadcastMessage(_sharedData.getMovies().get(movieName)));
             }
             else
-                _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                _connections.send(connectionId, "ERROR request return failed");
         }
         //Balance info request
-        else if(params.get(0).toLowerCase() + params.get(1).toLowerCase() == "balance info")
+        else if(serviceName.toLowerCase().equals("balance info"))
         {
             _connections.send(connectionId, "ACK balance " + currUser.getBalance());
         }
         // Balance add request
-        else if (params.get(0).toLowerCase() + params.get(1).toLowerCase() == "balance add")
+        else if (serviceName.toLowerCase().equals("balance add"))
         {
-            int amountToAdd = Integer.parseInt(params.get(2));
+            int amountToAdd = Integer.parseInt(params.get(0));
             _sharedData.getDataExecutor().addBalanceToUser(currUser,amountToAdd);
             _connections.send(connectionId, "ACK balance " + currUser.getBalance() + " added " + amountToAdd);
         }
 
         // Admin Commands
         // add movie
-        else if (params.get(0).toLowerCase() == "addmovie")
+        else if (serviceName.toLowerCase().equals("addmovie"))
         {
-             if (currUser.getType() == "admin")
+             if (currUser.getType().equals("admin"))
              {
-                 String movieName = params.get(1);
-                 if (!_sharedData.getMovies().contains(movieName))
+                 String movieName = params.get(0);
+                 if (!_sharedData.getMovies().containsKey(movieName) && Integer.parseInt(params.get(2)) > 0)
+                 //the movie does not exist and the price is bigger then zero
                  {
                      Movie movie = new Movie(movieName,
-                             _sharedData.getNextMovieID(),Integer.parseInt(params.get(2)),
-                             Integer.parseInt(params.get(3)),
-                             new ArrayList<String>(Arrays.asList(params.get(4).split(","))),
-                             Integer.parseInt(params.get(2)));
+                             _sharedData.getNextMovieID(),Integer.parseInt(params.get(1)),
+                             Integer.parseInt(params.get(2)),
+                             new ArrayList<String>(Arrays.asList(params.get(3).split(","))),
+                             Integer.parseInt(params.get(1)));//check maybe null problem
+
                      _sharedData.getDataExecutor().addMovie(movie);
                      _connections.send(connectionId, "ACK addmovie" + movieName + " success" );
                      broadcastToLoggedInUsers(getBroadcastMessage(_sharedData.getMovies().get(movieName)));
                  }
                  else
-                     _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                     _connections.send(connectionId, "ERROR request addmovie failed");
              }
              else
              {
-                 _connections.send(connectionId, "ERROR request " + params.get(0) + "failed"); // user is not admin
+                 _connections.send(connectionId, "ERROR request addmovie failed"); // user is not admin
              }
         }
-        else if (params.get(0).toLowerCase() == "remmovie")
+        else if (serviceName.toLowerCase().equals("remmovie"))
         {
-            if (currUser.getType() == "admin")
+            if (currUser.getType().equals("admin"))
             {
-                String movieName = params.get(1);
-                if (_sharedData.getMovies().contains(movieName) && // movie doesn't exists
-                        !_sharedData.getUsers().values().stream().anyMatch(user-> // the movie was rented
-                    user.getMovies().stream().anyMatch(movie -> movie.getName() == movieName)))
+                String movieName = params.get(0);
+                if (_sharedData.getMovies().containsKey(movieName) && // movie exists
+                        !_sharedData.getUsers().values().stream().anyMatch(user-> // the movie wasn't rented
+                    user.getMovies().stream().anyMatch(movie -> movie.getName().equals(movieName))))
                 {
                     _sharedData.getDataExecutor().removeMovie(movieName);
                     _connections.send(connectionId, "ACK remmovie " + movieName + " success" );
                     broadcastToLoggedInUsers("BROADCAST movie " + movieName + " removed" );
                 }
                 else
-                    _connections.send(connectionId, "ERROR request " + params.get(0) + "failed");
+                    _connections.send(connectionId, "ERROR request remmovie failed");
             }
             else
             {
-                _connections.send(connectionId, "ERROR request " + params.get(0) + "failed"); // user is not admin
+                _connections.send(connectionId, "ERROR request remmovie failed"); // user is not admin
             }
         }
-        else if (params.get(0).toLowerCase() == "changeprice")
+        else if (serviceName.toLowerCase().equals("changeprice"))
         {
-            if (currUser.getType() == "admin")
+            if (currUser.getType().equals("admin"))
             {
-                String movieName = params.get(1);
-                int newPrice = Integer.parseInt(params.get(2));
-                if (_sharedData.getMovies().contains(movieName) &&  newPrice > 0)
+                String movieName = params.get(0);
+                int newPrice = Integer.parseInt(params.get(1));
+
+                if (_sharedData.getMovies().containsKey(movieName) &&  newPrice > 0)
                 {
                     _sharedData.getDataExecutor().changeMoviePrice(movieName,newPrice);
                     _connections.send(connectionId, "ACK changeprice " + movieName + " success" );
                     broadcastToLoggedInUsers(getBroadcastMessage(_sharedData.getMovies().get(movieName)));
                 }
                 else
-                    _connections.send(connectionId, "ERROR request " + params.get(0) + "failed"); // user is not admin
+                    _connections.send(connectionId, "ERROR request changeprice failed");
             }
             else
             {
-                _connections.send(connectionId, "ERROR request " + params.get(0) + "failed"); // user is not admin
+                _connections.send(connectionId, "ERROR request changeprice failed"); // user is not admin
             }
         }
     }

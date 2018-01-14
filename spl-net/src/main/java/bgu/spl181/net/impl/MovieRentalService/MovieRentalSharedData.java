@@ -16,9 +16,11 @@ public class MovieRentalSharedData extends USTBPsharedData<MovieUser,MoviesRenta
 
 
     public MovieRentalSharedData(Map<String, MovieUser> users,Map<String, Movie> movies,MoviesRentalDataExecutor executor) {
+
         super(users,executor);
         _movies = new ConcurrentHashMap<>();
         _movies.putAll(movies);
+        _executor.setMovies(_movies);
     }
 
     public ConcurrentHashMap<String, Movie> getMovies() {

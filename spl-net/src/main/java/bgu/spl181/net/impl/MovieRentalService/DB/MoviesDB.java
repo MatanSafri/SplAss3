@@ -39,7 +39,7 @@ public class MoviesDB implements DataCommands<String,Movie> {
         String sterilizeObj = _gson.toJson(jsonString);
         sterilizeObj = sterilizeObj.replace("\\\"","");
         try {
-            Files.write(Paths.get("Movies.json"), sterilizeObj.getBytes());
+            Files.write(Paths.get("Database\\Movies.json"), sterilizeObj.getBytes());
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class MoviesDB implements DataCommands<String,Movie> {
     public synchronized Map<String, Movie> getData() {
         Map<String, Movie> movies = new HashMap();
         try {
-            _jsonObj = _gson.fromJson(new FileReader("Movies.json"), JsonObject.class);
+            _jsonObj = _gson.fromJson(new FileReader("Database\\Movies.json"), JsonObject.class);
             JsonArray jsonArray = _jsonObj.get("movies").getAsJsonArray();
             for (JsonElement jsonUser :
                     jsonArray) {

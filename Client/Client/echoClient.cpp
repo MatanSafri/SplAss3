@@ -65,11 +65,11 @@ int main(int argc, char *argv[]) {
 	/*if (argc < 3) {
 		std::cerr << "ip: " << argv[0] << " port" << std::endl << std::endl;
 		return -1;
-	}
-	std::string host = argv[1];
-	short port = atoi(argv[2]);*/
-	std::string host = "127.0.0.1";
-	short port = 7777;
+	}*/
+	std::string host = argv[0];
+	short port = atoi(argv[1]);
+	//std::string host = "127.0.0.1";
+	//short port = 7777;
 
 	ConnectionHandler connectionHandler(host, port);
 	if (!connectionHandler.connect()) {

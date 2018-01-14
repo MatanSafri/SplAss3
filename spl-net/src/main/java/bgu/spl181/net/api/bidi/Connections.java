@@ -1,8 +1,7 @@
 package bgu.spl181.net.api.bidi;
 
-import bgu.spl181.net.srv.ConnectionHandler;
+import bgu.spl181.net.srv.bidi.ConnectionHandler;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 

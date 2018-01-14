@@ -1,9 +1,5 @@
 package bgu.spl181.net.impl.UserServiceTextBased;
 
-import bgu.spl181.net.srv.ConnectionHandler;
-
-import java.util.LinkedList;
-
 public class User {
     private transient boolean isLogged;
     private String username;

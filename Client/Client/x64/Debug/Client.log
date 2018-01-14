@@ -1,0 +1,5 @@
+﻿  echoClient.cpp
+c:\users\matan safri\documents\university\semester5\spl\assigments\3\client\client\connectionhandler.h(6): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+  connectionHandler.cpp
+c:\users\matan safri\documents\university\semester5\spl\assigments\3\client\client\connectionhandler.h(6): fatal error C1083: Cannot open include file: 'boost/asio.hpp': No such file or directory
+  Generating Code...

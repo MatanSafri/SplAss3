@@ -2,6 +2,7 @@ package bgu.spl181.net.srv;
 
 import bgu.spl181.net.api.bidi.Connections;
 import bgu.spl181.net.srv.bidi.ConnectionHandler;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 
 import java.io.IOException;
@@ -11,22 +12,38 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConnectionsImpl<T> implements Connections<T> {
 
-    public   HashMap<Integer,ConnectionHandler<T>> _connectionHandlers = new HashMap<>();
+    public   WeakHashMap<ConnectionHandler<T>,Integer> _connectionHandlers = new WeakHashMap<>();
     private static AtomicInteger _idCounter = new AtomicInteger(0);
 
+    private ConnectionHandler<T> getConnectionById(int connectionId)
+    {
 
-    public HashMap<Integer, ConnectionHandler<T>> getConnectionHandlers() {
-        return _connectionHandlers;
+        /*Iterator<Map.Entry<ConnectionHandler<T>, Integer>> it = _connectionHandlers.entrySet().iterator();
+        if(it.hasNext()) {
+            Map.Entry<ConnectionHandler<T>, Integer> item = it.next();
+            if (item.getValue() == connectionId) {
+                return item.getKey();
+            }
+        }
+        return null;*/
+
+        for (Map.Entry<ConnectionHandler<T>, Integer> entry : _connectionHandlers.entrySet()) {
+            if (entry.getValue() == connectionId) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public boolean send(int connectionId, T msg)
     {
-        ConnectionHandler connectionHandler = _connectionHandlers.get(connectionId);
+        ConnectionHandler connectionHandler = getConnectionById(connectionId);
 
         if (connectionHandler == null)
             return false;
 
         try {
+            System.out.println("client " + connectionId + " sending message: " + msg);
             connectionHandler.send(msg);
             return true;
         }
@@ -39,7 +56,7 @@ public class ConnectionsImpl<T> implements Connections<T> {
     public void broadcast(T msg)
     {
         for ( ConnectionHandler connectionHandler:
-                _connectionHandlers.values()) {
+                _connectionHandlers.keySet()) {
             connectionHandler.send(msg);
         }
     }
@@ -49,25 +66,19 @@ public class ConnectionsImpl<T> implements Connections<T> {
         for(Integer connectionId:
                 specificConnection)
         {
-            if (_connectionHandlers.containsKey(connectionId))
-                _connectionHandlers.get(connectionId).send(msg);
+            ConnectionHandler<T> handler = getConnectionById(connectionId);
+            if (handler != null) {
+                System.out.println("client " + connectionId + " sending message: " + msg);
+                handler.send(msg);
+            }
 
         }
     }
 
-    public void disconnect(int connectionId)
-    {
-        try {
-            _connectionHandlers.get(connectionId).close();
-            _connectionHandlers.remove(connectionId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public int connect(ConnectionHandler<T> connectionHandler) {
-        _connectionHandlers.put(_idCounter.get(),connectionHandler);
-        return _idCounter.getAndIncrement();
+        _connectionHandlers.put(connectionHandler,_idCounter.incrementAndGet());
+        return _idCounter.get();
     }
 
 }

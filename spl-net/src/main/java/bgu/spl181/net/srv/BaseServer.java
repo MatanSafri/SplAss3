@@ -16,7 +16,7 @@ public abstract class BaseServer<T> implements Server<T> {
     private final Supplier<BidiMessagingProtocol<T>> protocolFactory;
     private final Supplier<MessageEncoderDecoder<T>> encdecFactory;
     private ServerSocket sock;
-    private Connections<T> _connections; //TODO: where is it initialized??
+    private Connections<T> _connections;
 
     public BaseServer(
             int port,

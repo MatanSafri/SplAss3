@@ -3,6 +3,7 @@ package bgu.spl181.net.srv;
 import bgu.spl181.net.api.MessageEncoderDecoder;
 import bgu.spl181.net.api.MessagingProtocol;
 import bgu.spl181.net.api.bidi.BidiMessagingProtocol;
+import bgu.spl181.net.api.bidi.Connections;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -21,7 +22,7 @@ public class Reactor<T> implements Server<T> {
     private final Supplier<MessageEncoderDecoder<T>> readerFactory;
     private final ActorThreadPool pool;
     private Selector selector;
-
+    private Connections<T> _connections;
     private Thread selectorThread;
     private final ConcurrentLinkedQueue<Runnable> selectorTasks = new ConcurrentLinkedQueue<>();
 
@@ -30,11 +31,12 @@ public class Reactor<T> implements Server<T> {
             int port,
             Supplier<BidiMessagingProtocol<T>> protocolFactory,
             Supplier<MessageEncoderDecoder<T>> readerFactory) {
-
         this.pool = new ActorThreadPool(numThreads);
         this.port = port;
         this.protocolFactory = protocolFactory;
         this.readerFactory = readerFactory;
+        _connections = new ConnectionsImpl<>();
+
     }
 
     @Override
@@ -85,7 +87,8 @@ public class Reactor<T> implements Server<T> {
         final SelectionKey key = chan.keyFor(selector);
         if (Thread.currentThread() == selectorThread) {
             key.interestOps(ops);
-        } else {
+        }
+        else {
             selectorTasks.add(() -> {
                 key.interestOps(ops);
             });
@@ -97,16 +100,20 @@ public class Reactor<T> implements Server<T> {
     private void handleAccept(ServerSocketChannel serverChan, Selector selector) throws IOException {
         SocketChannel clientChan = serverChan.accept();
         clientChan.configureBlocking(false);
+
+        BidiMessagingProtocol<T> messagingProtocol  = protocolFactory.get();
         final NonBlockingConnectionHandler handler = new NonBlockingConnectionHandler(
                 readerFactory.get(),
-                protocolFactory.get(),
+                messagingProtocol,
                 clientChan,
                 this);
+        int connectionId =  _connections.connect(handler);
+        messagingProtocol.start(connectionId,_connections);
         clientChan.register(selector, SelectionKey.OP_READ, handler);
     }
 
     private void handleReadWrite(SelectionKey key) {
-         NonBlockingConnectionHandler handler = (NonBlockingConnectionHandler) key.attachment();
+        NonBlockingConnectionHandler handler = (NonBlockingConnectionHandler) key.attachment();
 
         if (key.isReadable()) {
             Runnable task = handler.continueRead();

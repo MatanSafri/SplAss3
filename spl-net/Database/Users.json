@@ -1,46 +1,418 @@
-﻿{
+{
   "users": [
     {
-      "username": "john",
+      "balance": "245",
       "type": "admin",
-      "password": "potato",
       "country": "united states",
       "movies": [],
-      "balance": "0"
+      "username": "admin",
+      "password": "admin"
     },
-	{
-      "username": "lisa",
+    {
+      "balance": "112",
       "type": "normal",
-      "password": "chips123",
-      "country": "spain",
-      "movies": [
-        {
-          "id": "2",
-          "name": "The Pursuit Of Happyness"
-        },
-		{
-		  "id": "3",
-		  "name": "The Notebook"
-		}
-      ],
-      "balance": "37"
-    },
-	{
-      "username": "shlomi",
-      "type": "normal",
-      "password": "cocacola",
       "country": "israel",
       "movies": [
         {
+          "name": "The Godfather",
           "id": "1",
-          "name": "The Godfather"
+          "price": "0",
+          "availableAmount": "0",
+          "totalAmount": "0"
         },
-		{
-		  "id": "2",
-		  "name": "The Pursuit Of Happyness"
-		}
+        {
+          "name": "The Pursuit Of Happyness",
+          "id": "2",
+          "price": "0",
+          "availableAmount": "0",
+          "totalAmount": "0"
+        }
       ],
-      "balance": "112"
+      "username": "shlomi",
+      "password": "cocacola"
+    },
+    {
+      "balance": "2275",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client0",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2225",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client1",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1650",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "308",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client2",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2225",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client7",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1560",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "399",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client8",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1560",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "399",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client9",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1560",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "399",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client3",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2235",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client4",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2220",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client5",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1650",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "308",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client17",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1505",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "483",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client6",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1560",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "399",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client16",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1560",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "399",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client15",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2325",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client14",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1650",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "308",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client13",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2300",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client12",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "1650",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "308",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client11",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "2275",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [
+        {
+          "name": "The Godfather",
+          "id": "1",
+          "price": "25",
+          "bannedCountries": [
+            "united kingdom",
+            "italy"
+          ],
+          "availableAmount": "0",
+          "totalAmount": "2"
+        }
+      ],
+      "username": "Client10",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "37",
+      "type": "normal",
+      "country": "spain",
+      "movies": [
+        {
+          "name": "The Pursuit Of Happyness",
+          "id": "2",
+          "price": "0",
+          "availableAmount": "0",
+          "totalAmount": "0"
+        },
+        {
+          "name": "The Notebook",
+          "id": "3",
+          "price": "0",
+          "availableAmount": "0",
+          "totalAmount": "0"
+        }
+      ],
+      "username": "lisa",
+      "password": "chips123"
     }
   ]
 }

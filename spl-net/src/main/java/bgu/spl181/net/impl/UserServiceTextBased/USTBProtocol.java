@@ -31,7 +31,9 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
         String messageType = tmp.get(0).toUpperCase();
         switch (messageType){
             case "LOGIN":{
-                processLogin(tmp.get(1),tmp.get(2));
+                synchronized (_sharedData.getUsers()) {
+                    processLogin(tmp.get(1), tmp.get(2));
+                }
                 break;
             }
             case "REGISTER": {
@@ -45,7 +47,9 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
                         }
                     }
                 }
-                processBasicRegister(tmp.get(1), tmp.get(2),datablock);
+                synchronized (_sharedData.getUsers()) {
+                    processBasicRegister(tmp.get(1), tmp.get(2), datablock);
+                }
                 break;
             }
             case "REQUEST":{
@@ -62,7 +66,9 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
                 break;
             }
             case "SIGNOUT":{
-                processSignout();
+                synchronized (_sharedData.getUsers()) {
+                    processSignout();
+                }
                 break;
             }
             default:
@@ -74,7 +80,7 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
 
     public void broadcastToLoggedInUsers(String msg)
     {
-        _connections.broadcastSpecific(msg,_sharedData.getLoggedInUsers().keySet());
+        _connections.broadcastSpecific(msg, _sharedData.getLoggedInUsers().keySet());
     }
 
     /**
@@ -99,6 +105,7 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
 
     private void  processBasicRegister(String userName, String password, ArrayList<Pair<String,String>> datablock)
     {
+        System.out.println(userName + " requested register");
         if (password==null || userName==null || _sharedData.getUsers().get(userName) !=null|| isClientLoggedIn )
         {
             _connections.send(connectionId, "ERROR registration failed");
@@ -129,15 +136,15 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
         }
     }
 
-    private void processSignout()
+    private synchronized void processSignout()
     {
         if (isClientLoggedIn) {
-            _shouldTerminate = true;
             isClientLoggedIn = false;
             currUser.setIsLogged(false);
             currUser = null;
             _sharedData.getLoggedInUsers().remove(connectionId);
             _connections.send(connectionId, "ACK signout succeeded");
+            _shouldTerminate = true;
         }
         else {
             _connections.send(connectionId, "ERROR signout failed");

@@ -42,7 +42,7 @@ public class TPCMain {
 
 
         Server.threadPerClient(
-                Integer.parseInt(args[0]),
+                7777,
                 protocolSupplier,
                 messageEncoderDecoderSupplier
         ).serve();

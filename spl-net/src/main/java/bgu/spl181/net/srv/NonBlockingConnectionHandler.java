@@ -83,7 +83,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
     }
 
     public void continueWrite() {
-        while (!writeQueue.isEmpty()) {
+        while (chan.isOpen() && !writeQueue.isEmpty()) {
             try {
                 ByteBuffer top = writeQueue.peek();
                 chan.write(top);
@@ -99,7 +99,9 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
         }
 
         if (writeQueue.isEmpty()) {
-            if (protocol.shouldTerminate()) close();
+            if (protocol.shouldTerminate()) {
+                close();
+            }
             else reactor.updateInterestedOps(chan, SelectionKey.OP_READ);
         }
     }
@@ -120,6 +122,8 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T> {
 
     @Override
     public void send(T msg) {
+        // if the protocol should terminate dont send more messeges
+        //if (protocol.shouldTerminate()) return;
         writeQueue.add(ByteBuffer.wrap(encdec.encode(msg)));
         reactor.updateInterestedOps(chan, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
     }

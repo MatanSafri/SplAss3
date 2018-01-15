@@ -44,7 +44,7 @@ public class ReactorMain {
 
          Server.reactor(
                 Runtime.getRuntime().availableProcessors(),
-                Integer.parseInt(args[0]), //port
+                7777, //port
                  protocolSupplier,
                  messageEncoderDecoderSupplier
          ).serve();

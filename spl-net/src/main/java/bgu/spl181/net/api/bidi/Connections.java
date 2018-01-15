@@ -13,10 +13,6 @@ public interface Connections<T> {
 
     void broadcastSpecific(T msg, Collection<Integer> specificConnection);
 
-    void disconnect(int connectionId);
-
     int connect(ConnectionHandler<T> connectionHandler);
-
-    HashMap<Integer,ConnectionHandler<T>> getConnectionHandlers();
 
 }

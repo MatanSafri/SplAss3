@@ -9,7 +9,6 @@ import java.util.Map;
 
 public class USTBPDBExecutor<T extends User> implements USTBPDataExecutor<T> {
 
-    protected Object _lockUsers = new Object();
 
     protected DataCommands<String,T> _usersDB;
     protected Map<String,T> _users;
@@ -26,10 +25,8 @@ public class USTBPDBExecutor<T extends User> implements USTBPDataExecutor<T> {
 
     @Override
     public void register(T user) {
-        synchronized (_lockUsers) {
-            _users.put(user.getUserName(), user);
-            _usersDB.saveData(_users);
-        }
+        _users.put(user.getUserName(), user);
+        _usersDB.saveData(_users);
     }
 
 

@@ -22,7 +22,7 @@ public class UsersDB implements DataCommands<String,MovieUser> {
         String sterilizeObj = _gson.toJson(jsonString);
         sterilizeObj = sterilizeObj.replace("\\\"","");
         try {
-            Files.write(Paths.get("Database\\Users.json"), sterilizeObj.getBytes());
+            Files.write(Paths.get("Database/Users.json"), sterilizeObj.getBytes());
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class UsersDB implements DataCommands<String,MovieUser> {
     @Override
     public Map<String, MovieUser> getData() {
         Map<String, MovieUser> movieUsers = new HashMap<>();
-        try (FileReader fileReader =new FileReader("Database\\Users.json")){
+        try (FileReader fileReader =new FileReader("Database/Users.json")){
             _jsonObj = _gson.fromJson(fileReader, JsonObject.class);
             JsonArray jsonArray = _jsonObj.get("users").getAsJsonArray();
             for (JsonElement jsonUser :

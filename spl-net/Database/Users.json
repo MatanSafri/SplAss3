@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "balance": "245",
+      "balance": "371",
       "type": "admin",
       "country": "united states",
       "movies": [],
@@ -32,7 +32,7 @@
       "password": "cocacola"
     },
     {
-      "balance": "2275",
+      "balance": "3535",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -52,7 +52,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2225",
+      "balance": "3485",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -72,7 +72,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1650",
+      "balance": "2910",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -92,7 +92,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2225",
+      "balance": "3485",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -112,7 +112,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1560",
+      "balance": "2820",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -132,7 +132,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1560",
+      "balance": "2820",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -152,7 +152,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1560",
+      "balance": "2820",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -172,7 +172,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2235",
+      "balance": "3495",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -192,7 +192,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2220",
+      "balance": "3480",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -212,7 +212,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1650",
+      "balance": "2910",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -232,7 +232,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1505",
+      "balance": "2765",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -252,7 +252,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1560",
+      "balance": "2820",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -272,7 +272,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1560",
+      "balance": "2820",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -292,7 +292,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2325",
+      "balance": "3585",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -312,7 +312,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1650",
+      "balance": "2910",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -332,7 +332,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2300",
+      "balance": "3560",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -352,7 +352,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "1650",
+      "balance": "2910",
       "type": "normal",
       "country": "Russia",
       "movies": [
@@ -372,7 +372,7 @@
       "password": "tryingagain"
     },
     {
-      "balance": "2275",
+      "balance": "3535",
       "type": "normal",
       "country": "Russia",
       "movies": [

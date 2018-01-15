@@ -66,7 +66,7 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
                 break;
             }
             case "SIGNOUT":{
-                synchronized (_sharedData.getUsers()) {
+                synchronized (_connections) {
                     processSignout();
                 }
                 break;
@@ -80,7 +80,9 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
 
     public void broadcastToLoggedInUsers(String msg)
     {
-        _connections.broadcastSpecific(msg, _sharedData.getLoggedInUsers().keySet());
+        synchronized (_connections) {
+            _connections.broadcastSpecific(msg, _sharedData.getLoggedInUsers().keySet());
+        }
     }
 
     /**

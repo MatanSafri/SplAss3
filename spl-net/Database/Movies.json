@@ -1,51 +1,20 @@
 {
   "movies": [
     {
-      "name": "Alice in wonderland",
+      "name": "The Godfather",
       "id": "1",
-      "price": "12",
+      "price": "2",
       "bannedCountries": [],
       "availableAmount": "7",
       "totalAmount": "7"
     },
     {
-      "name": "Justice League",
-      "id": "4",
-      "price": "17",
-      "bannedCountries": [
-        "jordan",
-        "iran",
-        "lebanon"
-      ],
-      "availableAmount": "4",
-      "totalAmount": "4"
-    },
-    {
-      "name": "The Pursuit Of Happyness",
+      "name": "Alice in wonderland",
       "id": "2",
-      "price": "14",
+      "price": "12",
       "bannedCountries": [],
-      "availableAmount": "3",
-      "totalAmount": "5"
-    },
-    {
-      "name": "The Godfather",
-      "id": "1",
-      "price": "25",
-      "bannedCountries": [
-        "united kingdom",
-        "italy"
-      ],
-      "availableAmount": "5436",
-      "totalAmount": "2"
-    },
-    {
-      "name": "The Notebook",
-      "id": "3",
-      "price": "5",
-      "bannedCountries": [],
-      "availableAmount": "0",
-      "totalAmount": "1"
+      "availableAmount": "7",
+      "totalAmount": "7"
     }
   ]
 }

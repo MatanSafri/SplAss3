@@ -16,9 +16,9 @@ public class EchoClient {
     //configurable params
     private static int randomMultConstant = 15;
     private static int numOfCopies = 7;
-    private static int numOfClients = 18;
-    private static int numOfIterations = 30;
-    private static Boolean testNumOfRentedCopies = false;
+    private static int numOfClients = 30;
+    private static int numOfIterations = 100;
+    private static Boolean testNumOfRentedCopies = true;
 
     //test vars
     private static int numOfRentedCopies=0;

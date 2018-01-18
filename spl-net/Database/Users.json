@@ -1,12 +1,92 @@
 {
   "users": [
     {
-      "balance": "371",
+      "balance": "100",
       "type": "admin",
       "country": "united states",
       "movies": [],
       "username": "admin",
       "password": "admin"
+    },
+    {
+      "balance": "970",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client29",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "980",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client28",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "976",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client27",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "970",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client26",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "966",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client25",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "978",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client24",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "974",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client23",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "978",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client22",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "966",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client21",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "966",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client20",
+      "password": "tryingagain"
     },
     {
       "balance": "112",
@@ -32,362 +112,162 @@
       "password": "cocacola"
     },
     {
-      "balance": "3535",
+      "balance": "934",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client0",
       "password": "tryingagain"
     },
     {
-      "balance": "3485",
+      "balance": "926",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client1",
       "password": "tryingagain"
     },
     {
-      "balance": "2910",
+      "balance": "928",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "308",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client2",
       "password": "tryingagain"
     },
     {
-      "balance": "3485",
+      "balance": "942",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client7",
       "password": "tryingagain"
     },
     {
-      "balance": "2820",
+      "balance": "950",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "399",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client8",
       "password": "tryingagain"
     },
     {
-      "balance": "2820",
+      "balance": "940",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "399",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client9",
       "password": "tryingagain"
     },
     {
-      "balance": "2820",
+      "balance": "928",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "399",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client3",
       "password": "tryingagain"
     },
     {
-      "balance": "3495",
+      "balance": "968",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
+      "username": "Client19",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "964",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
+      "username": "Client18",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "912",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
       "username": "Client4",
       "password": "tryingagain"
     },
     {
-      "balance": "3480",
+      "balance": "978",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
-      "username": "Client5",
-      "password": "tryingagain"
-    },
-    {
-      "balance": "2910",
-      "type": "normal",
-      "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "308",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client17",
       "password": "tryingagain"
     },
     {
-      "balance": "2765",
+      "balance": "928",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "483",
-          "totalAmount": "2"
-        }
-      ],
-      "username": "Client6",
+      "movies": [],
+      "username": "Client5",
       "password": "tryingagain"
     },
     {
-      "balance": "2820",
+      "balance": "944",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "399",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client16",
       "password": "tryingagain"
     },
     {
-      "balance": "2820",
+      "balance": "928",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "399",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
+      "username": "Client6",
+      "password": "tryingagain"
+    },
+    {
+      "balance": "968",
+      "type": "normal",
+      "country": "Russia",
+      "movies": [],
       "username": "Client15",
       "password": "tryingagain"
     },
     {
-      "balance": "3585",
+      "balance": "950",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client14",
       "password": "tryingagain"
     },
     {
-      "balance": "2910",
+      "balance": "956",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "308",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client13",
       "password": "tryingagain"
     },
     {
-      "balance": "3560",
+      "balance": "934",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client12",
       "password": "tryingagain"
     },
     {
-      "balance": "2910",
+      "balance": "958",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "308",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client11",
       "password": "tryingagain"
     },
     {
-      "balance": "3535",
+      "balance": "940",
       "type": "normal",
       "country": "Russia",
-      "movies": [
-        {
-          "name": "The Godfather",
-          "id": "1",
-          "price": "25",
-          "bannedCountries": [
-            "united kingdom",
-            "italy"
-          ],
-          "availableAmount": "0",
-          "totalAmount": "2"
-        }
-      ],
+      "movies": [],
       "username": "Client10",
       "password": "tryingagain"
     },

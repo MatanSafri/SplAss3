@@ -141,12 +141,14 @@ public abstract class USTBProtocol<T extends User,K extends USTBPsharedData<T,? 
     private synchronized void processSignout()
     {
         if (isClientLoggedIn) {
+            _shouldTerminate = true;
+            _connections.send(connectionId, "ACK signout succeeded");
             isClientLoggedIn = false;
             currUser.setIsLogged(false);
             currUser = null;
             _sharedData.getLoggedInUsers().remove(connectionId);
-            _connections.send(connectionId, "ACK signout succeeded");
-            _shouldTerminate = true;
+            _connections.disconnect(connectionId);
+
         }
         else {
             _connections.send(connectionId, "ERROR signout failed");

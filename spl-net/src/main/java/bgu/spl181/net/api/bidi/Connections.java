@@ -15,4 +15,6 @@ public interface Connections<T> {
 
     int connect(ConnectionHandler<T> connectionHandler);
 
+    void disconnect(int connectionId);
+
 }
